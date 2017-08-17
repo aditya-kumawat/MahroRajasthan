@@ -1,34 +1,58 @@
-function initMap(pos) {
-  // console.log(pos);
-  var x = {lat: pos.coords.latitude, lng: pos.coords.longitude};
-  // console.log(x)
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
-    center: x
-  });
-  var marker = new google.maps.Marker({
-    position: x,
-    map: map
+$(document).ready(function() {
+  initMap();
+  current_location();
+});
+
+var map, marker;
+var check_marker = 0;
+var source;
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 13
+    });
+    google.maps.event.addListener(map, 'click', function(event) {
+     placeMarker(event.latLng);
   });
 }
 
-window.onload = function() {
-  var startPos;
-  var geoopts = {
-    enableHighAccuracy: true
-  };
-  var geoSuccess = function(position) {
-    startPos = position;
-    initMap(startPos);
-  };
-  var geoError = function(error) {
-    console.log('Error occurred. Error code: ' + error.code);
-    // error.code can be:
-    //   0: unknown error
-    //   1: permission denied
-    //   2: position unavailable (error response from location provider)
-    //   3: timed out
-  };
+function placeMarker(location) {
+    if(check_marker==1)
+        marker.setMap(null);
+    marker = new google.maps.Marker({
+        position: location, 
+        map: map
+    });
 
-  navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoopts);
-}; 
+    if(typeof location.lat ==="function")
+        var dest = {
+            lat : location.lat(),
+            lng : location.lng(),
+        }
+    else
+        var dest = {
+            lat : location.lat,
+            lng : location.lng,
+        }
+    map.setCenter(dest);
+
+    $('#lat').val(dest.lat);
+    $('#long').val(dest.lng);
+    check_marker=1;
+}
+
+function current_location() {
+    // Try HTML5 geolocation.
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            source = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            placeMarker(source);
+        }, function(error) {
+            if(error)
+                console.log("Fail");
+        });
+    }
+}
