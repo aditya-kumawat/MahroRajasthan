@@ -3,80 +3,98 @@ $(document).ready(function() {
   current_location();
 
   $(".pop-up .close").on("click", closePopUp);
+
 });
 
 var map, marker;
 var check_marker = 0;
 var source;
+var curPos, newPos;
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 13
-    });
-    google.maps.event.addListener(map, 'click', function(event) {
-     placeMarker(event.latLng);
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 13
+  });
+  google.maps.event.addListener(map, 'click', function(event) {
+    placeMarker(event.latLng);
   });
 }
 
 function placeMarker(location) {
-    if(check_marker==1)
-        marker.setMap(null);
-    marker = new google.maps.Marker({
-        position: location, 
-        map: map
-    });
+  if(check_marker==1)
+    marker.setMap(null);
+  marker = new google.maps.Marker({
+    position: location, 
+    map: map
+  });
 
-    if(typeof location.lat ==="function")
-        var dest = {
-            lat : location.lat(),
-            lng : location.lng(),
-        }
-    else
-        var dest = {
-            lat : location.lat,
-            lng : location.lng,
-        }
-    map.setCenter(dest);
+  if(typeof location.lat ==="function")
+    var dest = {
+      lat : location.lat(),
+      lng : location.lng(),
+    }
+  else
+    var dest = {
+      lat : location.lat,
+      lng : location.lng,
+    }
+  map.setCenter(dest);
 
-    // console.log(dest);
-    showPopUp(dest);
-    check_marker=1;
+  // console.log(dest);
+  showPopUp(dest);
+  check_marker=1;
 }
 
 function current_location() {
-    // Try HTML5 geolocation.
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            source = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            placeMarker(source);
-        }, function(error) {
-            if(error) 
-                console.log("Fail");
-        });
-    }
+  // Try HTML5 geolocation.
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      source = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+      };
+      curPos = source;
+      initInterval();
+      placeMarker(source);
+    }, function(error) {
+      if(error) 
+        console.log("Fail");
+    });
+  }
 }
 
 function showPopUp(dest) {
-    $.get("/api/locationInfo", dest, function(data, response) {
-        if(response=='success') {
-            openPopUp(data.locationTag, data.info);
-        }
-    })
+  newPos = dest;
+  $.get("/api/locationInfo", dest, function(data, response) {
+    if(response=='success') {
+      openPopUp(data.locationTag, data.info);
+    }
+  })
 }
 
 function closePopUp() {
-    var $popUp = $(".pop-up-container.open");
-    $popUp.removeClass("open");
-    $popUp.find(".title").text("");
-    $popUp.find(".content").text("");
+  var $popUp = $(".pop-up-container.open");
+  $popUp.removeClass("open");
+  $popUp.find(".title").text("");
+  $popUp.find(".content").text("");
 }
 
 function openPopUp(title, content) {
-    var $popUp = $(".pop-up-container");
-    $popUp.find(".title").text(title);
-    $popUp.find(".content").text(content);
-    $popUp.addClass("open");
+  var $popUp = $(".pop-up-container");
+  $popUp.find(".title").text(title);
+  $popUp.find(".content").text(content);
+  $popUp.addClass("open");
+}
+    
+function initInterval() {
+  var locationInterval = window.setInterval(function() {
+    if( (Math.abs(newPos.lat - curPos.lat) <= 0.5) && (Math.abs(newPos.lat - curPos.lat) <= 0.5) ) 
+      return;
+    else {
+      curPos = newPos;
+      $.post("/api/updateTour", curPos, function(data, response) {
+          console.log(response);
+      });
+    }
+  }, 5000);
 }
