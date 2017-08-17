@@ -27,6 +27,7 @@ body {
 	height: 100%;
 	overflow: hidden;
 	background-color: #615d8c;
+	letter-spacing: 1px;
 	font-family: "Museo Sans";
 }
 
@@ -101,7 +102,7 @@ body {
 */
 
 /*
-	Get started - starts here
+	Login - starts here
 */
 	.login-container {
 		position: relative;
@@ -154,70 +155,76 @@ body {
 		text-transform: capitalize;
 	}
 
-input[type="text"],
-input[type="number"],
-input[type="email"] {
-	font-family: "Museo Sans";
-	font-size: 18px;
-	color: white;
-	border-bottom: 1px solid white;
-}
-
-input[type="text"]:focus:not([readonly]),
-input[type="number"]:focus:not([readonly]),
-input[type="email"]:focus:not([readonly]) {
-	border-bottom: 1px solid white;
-	box-shadow;
-}
-/*
-	Get started - ends here
-*/
-
-/*
-	Generic
-*/
-	.base-container {
-		height: 100%;
-		width: 100%;
-		/*background: red;*/
+	input[type="text"],
+	input[type="number"],
+	input[type="email"] {
+		font-family: "Museo Sans";
+		font-size: 18px;
+		color: white;
+		border-bottom: 1px solid white;
 	}
 
-	.parent-block {
-		height: 100%;
-		width: 100%;
+	input[type="text"]:focus:not([readonly]),
+	input[type="number"]:focus:not([readonly]),
+	input[type="email"]:focus:not([readonly]) {
+		border-bottom: 1px solid white;
+		box-shadow;
 	}
-
 /*
-	Generic
+	Login - ends here
 */
 
 /*
 	Main-content - start here
 */
-	
-	.main-content-wrapper {
+	.main-content {
+		width: 100%;
+		height: 100vh;
+		padding-bottom: 56px;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	.map {
 		width: 100%;
 		height: 100%;
+		background-color: white;
 	}
 	
 /*
 	Main content - ends here
 */
-	/*
-		Nav - starts here
-	*/
-		nav {
-			position: fixed;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 56px;
-			z-index: 10;
-		}
 
-		nav > div {
-			
-		}
-	/*
-		Nav - ends here
-	*/
+/*
+	Nav - starts here
+*/
+	nav {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 56px;
+		z-index: 10;
+		background-color: #3cddb8;
+		box-shadow: 0 -2px 5px 0 rgba(255, 255, 255, 0.16), 0 -2px 10px 0 rgba(255, 255, 255, 0.12);
+	}
+/*
+	Nav - ends here
+*/
+
+/*
+	App Generic Styles - starts here
+*/
+	.map-container {
+		width: 100%;
+		height: 100%;
+		background-color: white;
+	}
+
+	#map {
+		width: 100%;
+		height: 100%;
+	}
+/*
+	App Generic Styles - ends here
+*/

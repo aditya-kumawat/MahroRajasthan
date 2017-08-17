@@ -13,40 +13,36 @@
   <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
   
   <!-- Styles -->
-  <link href="css/materialize.css" rel="stylesheet"/>
-  <link href="css/styles.css" rel="stylesheet"/>
+  <link href="../css/materialize.css" rel="stylesheet"/>
+  <link href="../css/styles.css" rel="stylesheet"/>
   
   <!-- JS libs -->
-  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/materialize.js"></script>
+  <script type="text/javascript" src="../javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="../javascripts/materialize.js"></script>
 
-  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="../javascripts/app.js"></script>
 </head>
 
-<body ng-controller="mainCtrl as main" class="row">
-  <div ng-hide="main.initialisedData" class="get-started-container flex-col flex-center-both col s12 blue darken-4" ng-click="main.removeGetStarted()">
-    <form class="flex-col flex-center-main get-started" method="post" action="/api/login">
-      <div class="input-field">
-        <label>Mobile Number</label>
-        <input type="text" name="mobileNo" ng-model="main.mobileNo">
-      </div>
-      <button class="btn" type="submit">Continue</button>
-    </form>
+<body class="row">
+  <div class="main-content">
+    <div class="map-container">
+      <div id="map"></div>
+    </div>    
   </div>
-  <div ng-show="main.initialisedData" class="main-content-wrapper">  
-    <div class="main-content">
+  <nav class="col s12">
+    <div class="flex-row flex-center-both nav-button col s3">
+      <i class="material-icons">home</i>
     </div>
-    <nav class="col s12">
-      <div class="flex-row flex-center-both nav-button col s4">
-        <i class="material-icons">person</i>
-      </div>
-      <div class="flex-row flex-center-both nav-button col s4">
-        <i class="material-icons">home</i>
-      </div>
-      <div class="flex-row flex-center-both nav-button col s4">
-        <i class="material-icons">star</i>
-      </div>
-    </nav>
-  </div>
+    <div class="flex-row flex-center-both nav-button col s3">
+      <i class="material-icons">star</i>
+    </div>
+    <div class="flex-row flex-center-both nav-button col s3">
+      <i class="material-icons">person</i>
+    </div>
+    <div class="flex-row flex-center-both nav-button col s3">
+      <i class="material-icons">person</i>
+    </div>
+  </nav>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpXWrGbuB4fPx6QELCLQmz3yATYeqtwcA&callback=initMap"></script>
 </body>
 </html>
