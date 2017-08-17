@@ -36,8 +36,7 @@ function placeMarker(location) {
         }
     map.setCenter(dest);
 
-    $('#lat').val(dest.lat);
-    $('#long').val(dest.lng);
+    console.log(dest);
     check_marker=1;
 }
 
