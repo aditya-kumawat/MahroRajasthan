@@ -4,13 +4,10 @@ var schema = new mongoose.Schema({
 	age: Number,
 	gender: String,
 	timestamp: {type: Date, default: Date.now},
-	tour: [
+	path: [
 		{lat: Number, lng: Number}
 		],
-	locationTag: {
-		lat: Number,
-		lng: Number
-	}
+	locationTag: String
 });
 
 module.exports = mongoose.model('tour', schema);

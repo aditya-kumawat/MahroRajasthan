@@ -319,6 +319,7 @@ body {
 		bottom: 0;
 		width: 100%;
 		height: 55vh;
+		z-index: 60;
 		overflow: hidden; 
 		background-color: white;
 		will-change: transform;
@@ -373,10 +374,10 @@ body {
 .start-tour {
 	position: absolute;
 	left: 10px;
-	bottom: 60px;
-	padding: 2vh 3vw !important;
+	bottom: 100px;
+	padding: 0vh 3vw !important;
 	background-color: white;
 	color: #615d8c;
-	font-size: 20px;
-
+	font-size: 14px;
+	z-index: 5;
 }

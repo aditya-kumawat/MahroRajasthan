@@ -3,7 +3,7 @@ $(document).ready(function() {
   current_location();
 
   $(".pop-up .close").on("click", closePopUp);
-
+  $(".start-tour").on("click", startTour);
 });
 
 var map, marker;
@@ -110,4 +110,12 @@ function initInterval() {
     });
 
   }, 5000);
+}
+
+function startTour() {
+    $.get("api/getTour", function(data, response) {
+        if(response == "success") {
+
+        }
+    });
 }
