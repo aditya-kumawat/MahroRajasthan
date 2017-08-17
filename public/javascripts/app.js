@@ -1,21 +1,25 @@
 function initMap(pos) {
-  var uluru = {lat: -25.363, lng: 131.044};
+  // console.log(pos);
+  var x = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+  // console.log(x)
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
+    zoom: 8,
+    center: x
   });
   var marker = new google.maps.Marker({
-    position: uluru,
+    position: x,
     map: map
   });
 }
 
 window.onload = function() {
   var startPos;
+  var geoopts = {
+    enableHighAccuracy: true
+  };
   var geoSuccess = function(position) {
     startPos = position;
-    console.log(startPos);
-    initMap(pos);
+    initMap(startPos);
   };
   var geoError = function(error) {
     console.log('Error occurred. Error code: ' + error.code);
@@ -26,5 +30,5 @@ window.onload = function() {
     //   3: timed out
   };
 
-  navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+  navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoopts);
 }; 
