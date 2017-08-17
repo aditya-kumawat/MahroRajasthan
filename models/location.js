@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-	latLng: {
+	// latLng: {
 		lat: Number,
-		lng: Number
-	},
+		lng: Number,
+	// },
 	info: String,
 	locationTag: String,
 });

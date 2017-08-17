@@ -50,7 +50,24 @@ var Tour = require('./models/tour');
 var Location = require('./models/location');
 
 app.get('/', function(req, res) {
-    res.sendFile( app.get('views') + '/index.html');
+    console.log("Y");
+    if(req.session.tourId) {
+            console.log("g");   
+        res.sendFile( app.get('views') + '/index.html');
+    } else {
+        if(req.session.mobileNo) {
+            if(req.session.verified) {
+            console.log("w");   
+                res.redirect('/details');
+            } else {
+            console.log("F");   
+                res.redirect('/verify');
+            }
+        } else {
+            console.log("H");
+            res.redirect('/login');
+        }
+    }
 });
 app.get('/login', function(req, res) {
     res.sendFile(app.get('views') + '/login.html');
@@ -86,6 +103,7 @@ app.post('/api/verify', function(req, res) {
             console.log(user);
             if(user.otp==data) {
                 res.redirect('/details');
+                req.session.verified = true;
             } else {
                 res.redirect('/verify');
             }
@@ -112,19 +130,50 @@ app.post('/api/details', function(req, res) {
     }
     res.redirect('/');
 })
+app.get('/api/insertLocation', function(req, res) {
+    var data = {
+        lat: 26.78,
+        lng: 75.82,
+        locationTag: "Jaipur",
+        info: "Hello World. Success",
+    }
+    var location = new Location(data);
+    location.save(function(err) {
+        if(err) {
+            console.log(err)
+        } else {
+            console.log("Location info added");
+        }
+    })
+})
 app.get('/api/locationInfo', function(req, res) {
     var data = req.query;
-    Location.find({latLng: {
-        lat: {$gt: data.lat-0.5, $lt:data.lat+0.5},
-        lng: {$gt: data.lng-0.5, $lt:data.lng+0.5}
-    }}, function(err, location) {
+    data.lat = parseFloat(data.lat);
+    data.lng = parseFloat(data.lng);
+    Location.find({
+        lat: {$gt: data.lat-0.5, $lt:data.lat+0.5}
+    }, function(err, location) {
+        console.log(location);
         if(err) {
             res.send("Unknown location", "Unknown Info");
         } else {
             if(location && location[0]) {
                 res.send({locationTag: location[0].locationTag, info: location[0].info});
             } else {
-                res.send({locationTag: "Unknown location", info: "Unknown Info"});
+                Location.find({
+                    lng: {$gt: data.lng-0.5, $lt:data.lng+0.5}
+                }, function(err, location) {
+                    console.log(location);
+                    if(err) {
+                        res.send("Unknown location", "Unknown Info");
+                    } else {
+                        if(location && location[0]) {
+                            res.send({locationTag: location[0].locationTag, info: location[0].info});
+                        } else {
+                            res.send({locationTag: "Unknown location", info: "Unknown Info"});
+                        }
+                    }
+                })
             }
         }
     })
