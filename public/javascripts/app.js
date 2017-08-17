@@ -1,6 +1,8 @@
 $(document).ready(function() {
   initMap();
   current_location();
+
+  $(".pop-up .close").on("click", closePopUp);
 });
 
 var map, marker;
@@ -50,8 +52,22 @@ function current_location() {
             };
             placeMarker(source);
         }, function(error) {
-            if(error)
+            if(error) 
                 console.log("Fail");
         });
     }
+}
+
+function closePopUp() {
+    var $popUp = $(".pop-up-container.open");
+    $popUp.removeClass("open");
+    $popUp.find(".title").text("");
+    $popUp.find(".content").text("");
+}
+
+function openPopUp(title, content) {
+    var $popUp = $(".pop-up-container");
+    $popUp.find(".title").text(title);
+    $popUp.find(".content").text(content);
+    $popUp.addClass("open");
 }
