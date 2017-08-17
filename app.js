@@ -108,6 +108,7 @@ app.post('/api/details', function(req, res) {
                 res.redirect('/details');
             }
         })
+        req.session.tourId = tour._id;
     }
     res.redirect('/');
 })
@@ -124,5 +125,18 @@ app.get('/api/locationInfo', function(req, res) {
                 res.send(location[0].locationTag, location[0].info);
             }
         }
+    })
+})
+app.post('/api/updateTour', function(req, res) {
+    var data = req.body;
+    Tour.findById(req.session.tourId, function(err, tour) {
+        tour.push(data);
+        tour.save(function(err) {
+            if(err) {
+                console.log(err);
+            } else {
+                res.redirect('/');
+            }
+        })
     })
 })
