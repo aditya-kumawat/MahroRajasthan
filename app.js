@@ -46,6 +46,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/mahroRajasthan', function(err) {
 });
 
 var User = require('./models/user');
+var Tour = require('./models/tour');
+var Location = require('./models/location');
 
 app.get('/', function(req, res) {
     res.sendFile( app.get('views') + '/index.html');
@@ -60,13 +62,12 @@ app.get('/details', function(req, res){
     res.sendFile( app.get('views') + '/details.html');
 });
 
-
 app.post('/api/login', function(req, res) {
     var data = req.body.mobileNo;
     var user = new User();
     user.mobileNo = data;
     user.save(function(err) {
-        if(err) {
+        if(err && err.code!=11000) {
             console.log(err);
             res.redirect('/login');
         } else {
@@ -109,6 +110,11 @@ app.post('/api/details', function(req, res) {
         })
     }
     res.redirect('/');
+})
+app.get('/api/locationInfo', function(req, res) {
+    var data = req.query;
+    // res.redirect('/');
+    // res.send("Hello World");
 })
 
 app.post('/postdetails', function(req, res){
