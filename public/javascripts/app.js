@@ -40,7 +40,6 @@ function placeMarker(location) {
     }
   map.setCenter(dest);
 
-  // console.log(dest);
   showPopUp(dest);
   check_marker=1;
 }
@@ -53,7 +52,8 @@ function current_location() {
           lat: position.coords.latitude,
           lng: position.coords.longitude
       };
-      curPos = source;
+      curPos = source
+      newPos = curPos;
       initInterval();
       placeMarker(source);
     }, function(error) {
@@ -66,9 +66,9 @@ function current_location() {
 function showPopUp(dest) {
   newPos = dest;
   $.get("/api/locationInfo", dest, function(data, response) {
-    if(response=='success') {
+    // if(response=='success') {
       openPopUp(data.locationTag, data.info);
-    }
+    // }
   })
 }
 
@@ -88,13 +88,26 @@ function openPopUp(title, content) {
     
 function initInterval() {
   var locationInterval = window.setInterval(function() {
-    if( (Math.abs(newPos.lat - curPos.lat) <= 0.5) && (Math.abs(newPos.lat - curPos.lat) <= 0.5) ) 
-      return;
-    else {
-      curPos = newPos;
-      $.post("/api/updateTour", curPos, function(data, response) {
-          console.log(response);
-      });
-    }
+    var temp;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      source = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+      };
+      temp = source;
+        if( (Math.abs(temp.lat - curPos.lat) <= 0.5) && (Math.abs(temp.lat - curPos.lat) <= 0.5) ) 
+          return;
+        else {
+            newPos = temp;
+          curPos = newPos;
+          $.post("/api/updateTour", curPos, function(data, response) {
+              console.log(response);
+          });
+        }
+    }, function(error) {
+      if(error) 
+        console.log("Fail");
+    });
+
   }, 5000);
 }

@@ -122,7 +122,9 @@ app.get('/api/locationInfo', function(req, res) {
             res.send("Unknown location", "Unknown Info");
         } else {
             if(location && location[0]) {
-                res.send(location[0].locationTag, location[0].info);
+                res.send({locationTag: location[0].locationTag, info: location[0].info});
+            } else {
+                res.send({locationTag: "Unknown location", info: "Unknown Info"});
             }
         }
     })
