@@ -113,15 +113,16 @@ app.post('/api/details', function(req, res) {
 })
 app.get('/api/locationInfo', function(req, res) {
     var data = req.query;
-    // res.redirect('/');
-    // res.send("Hello World");
+    Location.find({latLng: {
+        lat: {$gt: data.lat-0.5, $lt:data.lat+0.5},
+        lng: {$gt: data.lng-0.5, $lt:data.lng+0.5}
+    }}, function(err, location) {
+        if(err) {
+            res.send("Unknown location", "Unknown Info");
+        } else {
+            if(location && location[0]) {
+                res.send(location[0].locationTag, location[0].info);
+            }
+        }
+    })
 })
-
-app.post('/postdetails', function(req, res){
-    console.log(req.body);
-    res.send("ab aage kya karna hai");
-});
-
-app.get('/map', function(req, res){
-    res.sendFile( app.get('views') + '/map.html');
-});

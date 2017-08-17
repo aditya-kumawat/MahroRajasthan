@@ -38,7 +38,8 @@ function placeMarker(location) {
         }
     map.setCenter(dest);
 
-    console.log(dest);
+    // console.log(dest);
+    showPopUp(dest);
     check_marker=1;
 }
 
@@ -56,6 +57,14 @@ function current_location() {
                 console.log("Fail");
         });
     }
+}
+
+function showPopUp(dest) {
+    $.get("/api/locationInfo", dest, function(data, response) {
+        if(response=='success') {
+            openPopUp(data.locationTag, data.info);
+        }
+    })
 }
 
 function closePopUp() {
