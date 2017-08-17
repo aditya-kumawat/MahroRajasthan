@@ -245,7 +245,7 @@ app.get('/addLocation', function(req, res){
 
 });
 
-app.get('/addTour', function(req, res){
+app.get('/api/addTour', function(req, res){
     Location.find({}, function(err, locations){
         if(err){
             res.send(err);
@@ -326,7 +326,16 @@ app.get('/api/getTour', function(req, res){
             }
 
             console.log(finalPath);
-            res.send(finalPath);
+            resultPath = [];
+            for(var i = 0;i < finalPath.length;i++) {
+                var arr = finalPath[i].split(" ");
+                resultPath.push({
+                    lat: parseFloat(arr[0]),
+                    lng: parseFloat(arr[1])
+                });
+            }
+            console.log(resultPath);
+            res.send(resultPath);
 
         }
 

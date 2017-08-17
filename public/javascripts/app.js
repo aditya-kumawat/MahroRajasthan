@@ -115,7 +115,17 @@ function initInterval() {
 function startTour() {
     $.get("api/getTour", function(data, response) {
         if(response == "success") {
+            console.log(data);
+            var flightPlanCoordinates = data;
+            var flightPath = new google.maps.Polyline({
+              path: flightPlanCoordinates,
+              geodesic: true,
+              strokeColor: '#FF0000',
+              strokeOpacity: 1.0,
+              strokeWeight: 2
+            });
 
+            flightPath.setMap(map);
         }
     });
 }
