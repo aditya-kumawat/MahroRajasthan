@@ -1,0 +1,223 @@
+* {
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/*
+	Font includes - starts here
+*/
+	@font-face {
+	  src: url("../font/MuseoSans_500.otf");
+	  font-family: "Museo Sans"; 
+	}
+
+	@font-face {
+		src: url("../font/Pacifico.ttf");
+		font-family: "Pacifico";
+	}
+/*
+	Font includes - ends here
+*/
+
+body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #615d8c;
+	font-family: "Museo Sans";
+}
+
+/*
+	Helper classes - starts here
+*/
+
+	.flex-row {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	}
+
+	.flex-col {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	}
+
+	.flex-center-main {
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	}
+
+	.flex-center-cross {
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	}
+
+	.flex-center-both {
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	}
+
+	.flex-space-around {
+	-ms-flex-pack: distribute;
+	    justify-content: space-around;
+	}
+
+	.flex-space-between {
+	-webkit-box-pack: justify;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+	}
+
+	.flex-grow {
+	-webkit-box-flex: 1;
+	    -ms-flex-positive: 1;
+	        flex-grow: 1;
+	}
+
+	.flex-wrap {
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	}
+/*
+	Helper classes - ends here
+*/
+
+/*
+	Get started - starts here
+*/
+	.login-container {
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1000;
+		justify-content: space-around;
+		background: #5D4157;
+		background: -webkit-linear-gradient(-150deg, #cb98cf, #a79bd5, #5d65a2, #313758);
+		background: linear-gradient(-150deg, #cb98cf, #a79bd5, #5d65a2, #313758);
+	}
+
+	.login-container p.title {
+		font-size: 24px;
+    color: white;
+    /*text-transform: uppercase;*/
+    letter-spacing: 2px; 
+    flex-grow: 2;
+    font-family: "Pacifico"
+	}
+
+	.login-container form {
+		width: 100%;
+		padding: 0 15vw !important;
+		color: black !important;
+		margin-bottom: 5vh !important;
+	}
+
+	.login-container  .input-field label{
+		font-size: 16px;
+		color: white;
+	}
+
+	.login-container  form  > * {
+		margin-bottom: 3vh !important;		
+	}
+
+	.login-container form > input {
+		width: 100%;
+	}
+	
+	.login-container form > button.btn {
+		width: 70%;
+		min-height: 48px;
+		background-color: transparent;
+		border-radius: 2px;
+		border: 2px solid white;
+		text-transform: capitalize;
+	}
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+	font-family: "Museo Sans";
+	font-size: 18px;
+	color: white;
+	border-bottom: 1px solid white;
+}
+
+input[type="text"]:focus:not([readonly]),
+input[type="number"]:focus:not([readonly]),
+input[type="email"]:focus:not([readonly]) {
+	border-bottom: 1px solid white;
+	box-shadow;
+}
+/*
+	Get started - ends here
+*/
+
+/*
+	Generic
+*/
+	.base-container {
+		height: 100%;
+		width: 100%;
+		/*background: red;*/
+	}
+
+	.parent-block {
+		height: 100%;
+		width: 100%;
+	}
+
+/*
+	Generic
+*/
+
+/*
+	Main-content - start here
+*/
+	
+	.main-content-wrapper {
+		width: 100%;
+		height: 100%;
+	}
+	
+/*
+	Main content - ends here
+*/
+	/*
+		Nav - starts here
+	*/
+		nav {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 56px;
+			z-index: 10;
+		}
+
+		nav > div {
+			
+		}
+	/*
+		Nav - ends here
+	*/

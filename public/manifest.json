@@ -1,0 +1,12 @@
+{
+  "name": "Mahro Rajasthan",
+  "short_name": "Mahro Rajasthan",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation":"portrait",
+  "icons": [{
+    "src": "images/mascot.png",
+    "sizes": "196x196",
+    "type": "image/png"
+  }]
+}

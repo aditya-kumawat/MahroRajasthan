@@ -1,0 +1,22 @@
+{
+  "name": "sushihunt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "deploy": "git add . && git commit -m 'app-update' && git push heroku master"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-handlebars": "*",
+    "express-session": "^1.15.5",
+    "http": "0.0.0",
+    "mongoose": "^4.11.7",
+    "request": "*",
+    "serve-favicon": "*"
+  }
+}
